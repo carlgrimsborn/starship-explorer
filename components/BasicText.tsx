@@ -12,6 +12,7 @@ const BasicText: React.FC<TextProps> = (props) => {
 const styles = StyleSheet.create({
   text: {
     fontSize: 18,
+    fontFamily: "Verdana",
   },
 });
 

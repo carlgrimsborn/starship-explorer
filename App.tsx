@@ -7,13 +7,14 @@ import { useEffect } from "react";
 import { config } from "./overmind";
 import { createOvermind } from "overmind";
 import Home from "./screens/Home";
+import Navigation from "./navigation";
 
 const overmind = createOvermind(config);
 
 export default function App() {
   return (
     <Provider value={overmind}>
-      <Home />
+      <Navigation />
     </Provider>
   );
 }
