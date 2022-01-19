@@ -4,8 +4,8 @@ import { View, StyleSheet, ScrollView } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 import BasicButton from "../components/BasicButton";
 import BasicText from "../components/BasicText";
+import DataItem from "../components/DataItem";
 import { useOvermindState } from "../overmind";
-import { StarShip } from "../overmind/state";
 
 const About: React.FC = () => {
   const { selectedStarShip } = useOvermindState();
@@ -14,12 +14,12 @@ const About: React.FC = () => {
   return (
     <SafeAreaView style={styles.container}>
       <ScrollView showsVerticalScrollIndicator={false}>
-        {Object.entries(selectedStarShip!).map((value) => {
+        {Object.entries(selectedStarShip!).map((value, i) => {
           if (value[0] === "pilotConnection" || value[0] === "filmConnection") {
             return (
               <BasicButton
                 style={{
-                  marginVertical: 10,
+                  marginTop: 20,
                 }}
                 title={value[0] === "pilotConnection" ? "pilots" : "films"}
                 onPress={() => {}}
@@ -27,10 +27,12 @@ const About: React.FC = () => {
             );
           } else {
             return (
-              <View style={styles.box}>
-                <BasicText>{value[0] + ":"}</BasicText>
-                <BasicText>{value[1]}</BasicText>
-              </View>
+              <DataItem
+                index={i}
+                title={value[0]}
+                text={value[1]}
+                key={i}
+              ></DataItem>
             );
           }
         })}
@@ -44,13 +46,6 @@ const styles = StyleSheet.create({
     flex: 1,
     paddingHorizontal: 10,
     paddingTop: -40,
-  },
-  box: {
-    marginVertical: 10,
-    paddingVertical: 5,
-    alignItems: "center",
-    justifyContent: "space-between",
-    height: 60,
   },
 });
 

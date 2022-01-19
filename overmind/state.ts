@@ -1,14 +1,14 @@
-type Film = {
+export type Film = {
   title: string;
   director: string;
 };
 
-type Species = {
+export type Species = {
   name: string;
   language: string;
 };
 
-type HomeWorld = {
+export type HomeWorld = {
   name: string;
 };
 
@@ -50,11 +50,17 @@ export type StarShip = {
 type State = {
   starShips: StarShip[] | null;
   selectedStarShip: StarShip | null;
+  selectedFilms: Film[] | null;
+  selectedPilots: Pilot[] | null;
+  selectedPilot: Pilot | null;
   loading: boolean;
 };
 
 export const state: State = {
   starShips: null,
   selectedStarShip: null,
+  selectedPilots: null,
+  selectedPilot: null,
+  selectedFilms: null,
   loading: false,
 };
