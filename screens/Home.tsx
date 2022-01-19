@@ -1,14 +1,21 @@
 import { useNavigation } from "@react-navigation/native";
 import React, { useEffect } from "react";
-import { Button, View, StyleSheet, FlatList, Text } from "react-native";
+import {
+  Button,
+  View,
+  StyleSheet,
+  FlatList,
+  Text,
+  ActivityIndicator,
+} from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 import ListItem from "../components/ListItem";
 import { useOvermindActions, useOvermindState } from "../overmind";
 import { StarShip } from "../overmind/state";
 
 const Home: React.FC = () => {
-  const { getStarships } = useOvermindActions();
-  const { starShips } = useOvermindState();
+  const { getStarships, setSelectedStarShip } = useOvermindActions();
+  const { starShips, loading } = useOvermindState();
   const navigation = useNavigation();
 
   useEffect(() => {
@@ -22,23 +29,44 @@ const Home: React.FC = () => {
     <ListItem
       starShip={item}
       key={item.name}
-      onPress={() => navigation.navigate("About", { title: item.name })}
+      onPress={() => {
+        setSelectedStarShip({ starShip: item });
+        navigation.navigate("About", { title: item.name });
+      }}
     ></ListItem>
   );
 
-  return (
-    <SafeAreaView style={styles.container}>
-      <FlatList
-        data={starShips}
-        renderItem={renderItem}
-        horizontal={false}
-      ></FlatList>
-    </SafeAreaView>
-  );
+  if (loading) {
+    return (
+      <View style={styles.indicatorView}>
+        <ActivityIndicator size="large" />
+      </View>
+    );
+  } else {
+    return (
+      <SafeAreaView style={styles.container}>
+        <FlatList
+          data={starShips}
+          renderItem={renderItem}
+          horizontal={false}
+          showsVerticalScrollIndicator={false}
+        ></FlatList>
+      </SafeAreaView>
+    );
+  }
 };
 
 const styles = StyleSheet.create({
-  container: { flex: 1, marginHorizontal: 10, paddingTop: -40 },
+  container: {
+    flex: 1,
+    marginHorizontal: 10,
+    paddingTop: -40,
+  },
+  indicatorView: {
+    flex: 1,
+    justifyContent: "center",
+    alignItems: "center",
+  },
 });
 
 export default Home;

@@ -13,7 +13,7 @@ const RootNavigator = () => (
     <Stack.Screen
       name="Home"
       component={Home}
-      options={{ title: "Starship explorer" }}
+      options={{ title: "Starship Explorer" }}
     ></Stack.Screen>
     <Stack.Screen
       name="About"
