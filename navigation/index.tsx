@@ -1,6 +1,12 @@
-import { DefaultTheme, NavigationContainer } from "@react-navigation/native";
+import {
+  DefaultTheme,
+  NavigationContainer,
+  Theme,
+} from "@react-navigation/native";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
-import React from "react";
+import React, { useState } from "react";
+import { TouchableOpacity, View, StyleSheet } from "react-native";
+import BasicText from "../components/BasicText";
 import About from "../screens/About";
 import Home from "../screens/Home";
 import Movies from "../screens/Movies";
@@ -11,9 +17,49 @@ import { RootStackParamList } from "./types";
 
 const Stack = createNativeStackNavigator<RootStackParamList>();
 
+type RightHeaderProps = {
+  onPress: () => void;
+};
+
+const MyTheme = () => {
+  return {
+    dark: false,
+    colors: {
+      primary: false ? "rgb(31,117,254)" : "rgb(139,0,0)",
+      background: false ? "rgb(220,220,220)" : "#626262",
+      text: false ? "#252525" : "#dcdbdb",
+      card: false ? "rgb(31,117,254)" : "rgb(139,0,0)",
+      border: "black",
+      notification: "white",
+    },
+  };
+};
+
+const Rightheader: React.FC<RightHeaderProps> = ({ onPress }) => {
+  const [toggle, setToggle] = useState(false);
+  return (
+    <TouchableOpacity
+      onPress={() => {
+        onPress();
+        setToggle(!toggle);
+      }}
+    >
+      <BasicText style={[styles.text, { color: MyTheme().colors.primary }]}>
+        {toggle ? "jedi theme" : "sith theme"}
+      </BasicText>
+    </TouchableOpacity>
+  );
+};
+
 const RootNavigator = () => (
   <Stack.Navigator>
-    <Stack.Group>
+    <Stack.Group
+      screenOptions={{
+        headerStyle: { backgroundColor: MyTheme().colors.background },
+        headerBackTitle: "Back",
+        headerRight: () => <Rightheader onPress={() => {}} />,
+      }}
+    >
       <Stack.Screen
         name="Home"
         component={Home}
@@ -46,9 +92,19 @@ const RootNavigator = () => (
 );
 
 const Navigation = () => (
-  <NavigationContainer linking={LinkingConfiguration} theme={DefaultTheme}>
+  <NavigationContainer linking={LinkingConfiguration} theme={MyTheme()}>
     <RootNavigator></RootNavigator>
   </NavigationContainer>
 );
+
+const styles = StyleSheet.create({
+  text: {
+    fontSize: 12,
+  },
+  containerBtn: {
+    justifyContent: "center",
+    alignItems: "center",
+  },
+});
 
 export default Navigation;

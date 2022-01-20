@@ -1,6 +1,7 @@
 import React from "react";
 import { TouchableOpacity, StyleSheet, ViewStyle } from "react-native";
 import BasicText from "./BasicText";
+import { useTheme } from "@react-navigation/native";
 
 type Props = {
   onPress: () => void;
@@ -9,9 +10,13 @@ type Props = {
 };
 
 const BasicButton: React.FC<Props> = ({ onPress, title, style }) => {
+  const { colors } = useTheme();
   return (
     <TouchableOpacity
-      style={style ? [style, styles.buttonContainer] : styles.buttonContainer}
+      style={[
+        style ? [style, styles.buttonContainer] : styles.buttonContainer,
+        { backgroundColor: colors.primary },
+      ]}
       onPress={onPress}
     >
       <BasicText> {title} </BasicText>
