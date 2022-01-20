@@ -3,7 +3,10 @@ import { Text, TextProps, StyleSheet } from "react-native";
 
 const BasicText: React.FC<TextProps> = (props) => {
   return (
-    <Text style={props.style ? [props.style, styles.text] : styles.text}>
+    <Text
+      {...props}
+      style={props.style ? [props.style, styles.text] : styles.text}
+    >
       {props.children}
     </Text>
   );

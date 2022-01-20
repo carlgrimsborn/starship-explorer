@@ -10,9 +10,10 @@ const Pilots = () => {
   const { starShips, selectedStarShipIndex } = useOvermindState();
   const { setSelectedPilotIndex } = useOvermindActions();
   const navigation = useNavigation();
-  const pilots = selectedStarShipIndex
-    ? starShips![selectedStarShipIndex].pilotConnection.pilots
-    : null;
+  const pilots =
+    selectedStarShipIndex !== null
+      ? starShips![selectedStarShipIndex].pilotConnection.pilots
+      : null;
 
   return (
     <SafeAreaView style={styles.container}>

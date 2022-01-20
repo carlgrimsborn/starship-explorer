@@ -20,10 +20,10 @@ const Pilot: React.FC = () => {
       {pilot ? (
         <ScrollView>
           {Object.entries(pilot).map((value, i) => {
+            if (value[1] === null) {
+              return;
+            }
             if (value[0] === "species") {
-              if (value[1] === null) {
-                return;
-              }
               return (
                 <DataItem
                   key={i}
@@ -34,9 +34,6 @@ const Pilot: React.FC = () => {
               );
             }
             if (value[0] === "homeworld") {
-              if (value[1] === null) {
-                return;
-              }
               return (
                 <DataItem
                   key={i}

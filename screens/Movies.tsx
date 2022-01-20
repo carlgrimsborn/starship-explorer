@@ -7,9 +7,10 @@ import { useOvermindState } from "../overmind";
 
 const Movies = () => {
   const { starShips, selectedStarShipIndex } = useOvermindState();
-  const films = selectedStarShipIndex
-    ? starShips![selectedStarShipIndex].filmConnection.films
-    : null;
+  const films =
+    selectedStarShipIndex !== null
+      ? starShips![selectedStarShipIndex].filmConnection.films
+      : null;
   return (
     <SafeAreaView style={styles.container}>
       {films ? (

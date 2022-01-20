@@ -13,9 +13,12 @@ const About: React.FC = () => {
 
   return (
     <SafeAreaView style={styles.container}>
-      {selectedStarShipIndex ? (
+      {selectedStarShipIndex !== null ? (
         <ScrollView showsVerticalScrollIndicator={false}>
           {Object.entries(starShips![selectedStarShipIndex]).map((value, i) => {
+            if (value[1] === null) {
+              return;
+            }
             if (
               value[0] === "pilotConnection" ||
               value[0] === "filmConnection"
