@@ -8,6 +8,9 @@ const linking: LinkingOptions<RootStackParamList> = {
     screens: {
       Home: "Home",
       About: "About",
+      Movies: "Movies",
+      Pilot: "Pilot",
+      Pilots: "Pilots",
     },
   },
 };

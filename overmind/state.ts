@@ -49,18 +49,14 @@ export type StarShip = {
 
 type State = {
   starShips: StarShip[] | null;
-  selectedStarShip: StarShip | null;
-  selectedFilms: Film[] | null;
-  selectedPilots: Pilot[] | null;
-  selectedPilot: Pilot | null;
+  selectedStarShipIndex: number | null;
+  selectedPilotIndex: number | null;
   loading: boolean;
 };
 
 export const state: State = {
   starShips: null,
-  selectedStarShip: null,
-  selectedPilots: null,
-  selectedPilot: null,
-  selectedFilms: null,
+  selectedStarShipIndex: null,
+  selectedPilotIndex: null,
   loading: false,
 };

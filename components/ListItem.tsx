@@ -4,21 +4,20 @@ import { StarShip } from "../overmind/state";
 import BasicText from "./BasicText";
 
 type Props = {
-  starShip: StarShip;
+  title: String;
   onPress: () => void;
 };
 
-const ListItem: React.FC<Props> = ({ starShip, onPress }) => {
+const ListItem: React.FC<Props> = ({ title, onPress }) => {
   return (
-    <TouchableOpacity style={styles.ship} onPress={onPress}>
-      <BasicText>{starShip.name}</BasicText>
+    <TouchableOpacity style={styles.item} onPress={onPress}>
+      <BasicText>{title}</BasicText>
     </TouchableOpacity>
   );
 };
 
 const styles = StyleSheet.create({
-  ship: {
-    flex: 1,
+  item: {
     height: 75,
     backgroundColor: "lightblue",
     marginVertical: 5,

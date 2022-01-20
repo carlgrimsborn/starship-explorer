@@ -14,7 +14,7 @@ import { useOvermindActions, useOvermindState } from "../overmind";
 import { StarShip } from "../overmind/state";
 
 const Home: React.FC = () => {
-  const { getStarships, setSelectedStarShip } = useOvermindActions();
+  const { getStarships, setSelectedStarshipIndex } = useOvermindActions();
   const { starShips, loading } = useOvermindState();
   const navigation = useNavigation();
 
@@ -25,12 +25,12 @@ const Home: React.FC = () => {
     doAsync();
   }, []);
 
-  const renderItem = ({ item }: { item: StarShip }) => (
+  const renderItem = ({ item, index }: { item: StarShip; index: number }) => (
     <ListItem
-      starShip={item}
+      title={item.name}
       key={item.name}
       onPress={() => {
-        setSelectedStarShip({ starShip: item });
+        setSelectedStarshipIndex(index);
         navigation.navigate("About", { title: item.name });
       }}
     ></ListItem>
