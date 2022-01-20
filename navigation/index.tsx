@@ -7,6 +7,7 @@ import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import React, { useState } from "react";
 import { TouchableOpacity, View, StyleSheet } from "react-native";
 import BasicText from "../components/BasicText";
+import { useOvermindActions, useOvermindState } from "../overmind";
 import About from "../screens/About";
 import Home from "../screens/Home";
 import Movies from "../screens/Movies";
@@ -17,35 +18,36 @@ import { RootStackParamList } from "./types";
 
 const Stack = createNativeStackNavigator<RootStackParamList>();
 
-type RightHeaderProps = {
-  onPress: () => void;
-};
-
 const MyTheme = () => {
+  const { theme } = useOvermindState();
+  const isJedi = theme === "jedi";
   return {
     dark: false,
     colors: {
-      primary: false ? "rgb(31,117,254)" : "rgb(139,0,0)",
-      background: false ? "rgb(220,220,220)" : "#626262",
-      text: false ? "#252525" : "#dcdbdb",
-      card: false ? "rgb(31,117,254)" : "rgb(139,0,0)",
+      primary: isJedi ? "rgb(31,117,254)" : "rgb(139,0,0)",
+      background: isJedi ? "rgb(220,220,220)" : "#626262",
+      text: isJedi ? "#252525" : "#dcdbdb",
+      card: isJedi ? "rgb(31,117,254)" : "rgb(139,0,0)",
       border: "black",
       notification: "white",
     },
   };
 };
 
+type RightHeaderProps = {
+  onPress?: () => void;
+};
+
 const Rightheader: React.FC<RightHeaderProps> = ({ onPress }) => {
-  const [toggle, setToggle] = useState(false);
+  const { setTheme } = useOvermindActions();
+  const { theme } = useOvermindState();
+
   return (
     <TouchableOpacity
-      onPress={() => {
-        onPress();
-        setToggle(!toggle);
-      }}
+      onPress={() => setTheme(theme === "jedi" ? "sith" : "jedi")}
     >
       <BasicText style={[styles.text, { color: MyTheme().colors.primary }]}>
-        {toggle ? "jedi theme" : "sith theme"}
+        {theme === "jedi" ? "jedi theme" : "sith theme"}
       </BasicText>
     </TouchableOpacity>
   );
@@ -57,7 +59,7 @@ const RootNavigator = () => (
       screenOptions={{
         headerStyle: { backgroundColor: MyTheme().colors.background },
         headerBackTitle: "Back",
-        headerRight: () => <Rightheader onPress={() => {}} />,
+        headerRight: () => <Rightheader />,
       }}
     >
       <Stack.Screen

@@ -52,6 +52,7 @@ type State = {
   selectedStarShipIndex: number | null;
   selectedPilotIndex: number | null;
   loading: boolean;
+  theme: "jedi" | "sith";
 };
 
 export const state: State = {
@@ -59,4 +60,5 @@ export const state: State = {
   selectedStarShipIndex: null,
   selectedPilotIndex: null,
   loading: false,
+  theme: "jedi",
 };
